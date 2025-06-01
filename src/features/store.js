@@ -1,7 +1,7 @@
-const { configureStore } = require("@reduxjs/toolkit");
-
+import { configureStore } from "@reduxjs/toolkit";
+import tempReducer from "./slices/tempReducer"
 const store = configureStore({
-  reducer:""
-})
+  reducer:tempReducer
+});
 
 export default store;
