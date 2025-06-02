@@ -4,8 +4,8 @@ import TextField from "./TextField";
 export default function Layout() {
   return (
     <>
-    <TextField/>
-    <Outlet/>
+      {/* <TextField /> */}
+      <Outlet />
     </>
-  )
+  );
 }
