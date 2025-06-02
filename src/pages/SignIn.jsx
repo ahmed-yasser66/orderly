@@ -1,4 +1,5 @@
-// src/components/Auth.jsx
+
+import { Link } from "react-router-dom";
 import useGoogleAuth from "../hooks/useGoogleAuth";
 import { EmailIcon, PasswordIcon } from "../assets/icons/icons";
 export default function Auth() {
@@ -6,7 +7,7 @@ export default function Auth() {
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-base-200">
-      <div className="card w-full max-w-md bg-white shadow-xl ">
+      <div className="card w-full max-w-md bg-white shadow-sm ">
         <div className="card-body">
           <h2 className="text-3xl font-bold text-center">Sign in</h2>
           <p className="text-sm text-center text-gray-500 mb-4">
@@ -45,22 +46,23 @@ export default function Auth() {
             </div>
           </div>
 
-          <div className="form-control mb-4">
+          <div className="form-control mb-4 pl-10">
             <label className="label cursor-pointer">
               <input type="checkbox" className="checkbox" />
-              <span className="label-text ml-2">Remember password</span>
+              <span className="label-text ml-2">Remember me</span>
             </label>
           </div>
 
           <button className="btn btn-primary w-full mb-2">Login</button>
-          <button className="btn btn-accent btn-outline-primary w-full mb-2">
+          <Link to="/signup" className="btn btn-accent btn-outline-primary w-full mb-2">
             Sign Up
-          </button>
+          </Link>
 
           <div className="divider">OR</div>
 
           <button className="btn btn-outline w-full mb-2" onClick={login}>
-            <feFuncG className="text-xl mr-2" />
+            {/* Replace with a proper Google icon component */}
+            <span className="text-xl mr-2">G</span>
             Sign in with Google
           </button>
         </div>
