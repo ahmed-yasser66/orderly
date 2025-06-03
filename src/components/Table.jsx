@@ -1,5 +1,3 @@
-import React from "react";
-
 const Table = ({ headers, data }) => {
   return (
     <div className="overflow-x-auto rounded-box shadow-md border border-base-300 max-w-6xl mx-auto p-4">

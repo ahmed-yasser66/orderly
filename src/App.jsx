@@ -2,12 +2,9 @@ import { createBrowserRouter, RouterProvider } from "react-router";
 import { Provider } from "react-redux";
 import Layout from "./components/Layout";
 import store from "./features/store";
-
-import Button from "./components/Button";
-import Navbar from "./components/navbar";
-import Table from "./components/Table";
-import SignUp from "./pages/SignUp";
-import SignIn from "./pages/SignIn";
+import LoginForm from "./components/LoginForm";
+import SignUp from "./components/SignUp";
+import Landing from "./pages/Landing";
 
 function App() {
   const router = createBrowserRouter([
@@ -23,6 +20,10 @@ function App() {
           path: "signup",
           element: <SignUp />,
         },
+        {
+          path:"home",
+          element: <Landing/>
+        }
       ],
     },
   ]);
@@ -30,10 +31,7 @@ function App() {
   return (
     <Provider store={store}>
       <RouterProvider router={router}></RouterProvider>
-      
     </Provider>
-
-
   );
 }
 
