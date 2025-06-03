@@ -1,10 +1,10 @@
 import { Outlet } from "react-router";
-import TextField from "./TextField";
+import Navbar from "./Navbar";
 
 export default function Layout() {
   return (
     <>
-      {/* <TextField /> */}
+      <Navbar />
       <Outlet />
     </>
   );

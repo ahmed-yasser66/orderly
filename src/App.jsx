@@ -3,9 +3,9 @@ import { Provider } from "react-redux";
 
 import Layout from "./components/Layout";
 import store from "./features/store";
-import Auth from "./components/Auth";
 import LoginForm from "./components/LoginForm";
 import SignUp from "./components/SignUp";
+import Landing from "./pages/Landing";
 
 function App() {
   const router = createBrowserRouter([
@@ -21,6 +21,10 @@ function App() {
           path: "signup",
           element: <SignUp />,
         },
+        {
+          path:"home",
+          element: <Landing/>
+        }
       ],
     },
   ]);
