@@ -9,8 +9,10 @@ import Navbar from "./components/navbar";
 import Table from "./components/Table";
 import Auth from "./components/Auth";
 import LoginForm from "./components/LoginForm";
-import SignUp from "./components/SignUp";
+// import SignUp from "./components/SignUp";
 import Home from "./components/Home";
+import SignIn from "./pages/SignIn";
+import SignUp from "./pages/SignIn";
 
 function App() {
   const router = createBrowserRouter([
@@ -20,7 +22,7 @@ function App() {
       children: [
         {
           index: true,
-          element: <Auth />,
+          element: <SignIn />,
         },
         {
           path: "signup",
