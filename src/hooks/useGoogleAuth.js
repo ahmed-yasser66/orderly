@@ -1,6 +1,6 @@
 // src/hooks/useGoogleAuth.js
 import { useState } from "react";
-import { signInWithGoogle } from "../Firebase/config";
+import { api } from "../Firebase/api_util";
 
 export default function useGoogleAuth() {
   const [user, setUser] = useState(null);
@@ -8,7 +8,7 @@ export default function useGoogleAuth() {
 
   const login = async () => {
     try {
-      const result = await signInWithGoogle();
+      const result = await api.auth.loginWithGoogle();
       const userData = result.user;
       setUser(userData);
       console.log("Logged in user:", userData);

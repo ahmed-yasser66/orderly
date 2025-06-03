@@ -1,8 +1,7 @@
 import { useState } from "react";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../Firebase/config"; 
+import { auth } from "../Firebase/config";
 import { useNavigate } from "react-router";
-import { Link } from "react-router-dom";
 import useGoogleAuth from "../hooks/useGoogleAuth";
 import { EmailIcon, PasswordIcon } from "../assets/icons/icons";
 
@@ -93,7 +92,10 @@ export default function SignUp() {
             </div>
           </div>
           {error && <p className="text-red-500 text-sm text-center">{error}</p>}
-          <button className="btn btn-primary w-full mb-2" onClick={handleSignUp}>
+          <button
+            className="btn btn-primary w-full mb-2"
+            onClick={handleSignUp}
+          >
             Sign Up
           </button>
 
