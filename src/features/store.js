@@ -1,7 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
-import tempReducer from "./slices/tempReducer"
+import tempReducer from "./slices/tempReducer";
+import menuReducer from "./slices/menuSlice";
+
 const store = configureStore({
-  reducer: tempReducer
+  reducer: {
+    temp: tempReducer,
+    menu: menuReducer,
+  },
 });
 
 export default store;

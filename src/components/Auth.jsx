@@ -57,7 +57,7 @@ export default function Auth() {
   return (
     <div className="flex items-center justify-center min-h-screen bg-base-200">
       <form
-        className="card w-full max-w-md bg-white shadow-xl"
+        className="card w-full max-w-md bg-white shadow-sm"
         onSubmit={handleEmailLogin}
       >
         <div className="card-body">

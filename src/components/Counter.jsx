@@ -10,7 +10,7 @@ function Counter({ children }) {
 
   return (
     <CounterContext.Provider value={{ increment, decrement, count }}>
-      <div className="flex items-center content-center select-none border border-[var(--color-base-content)] w-fit rounded-xl overflow-clip shadow-md">
+      <div className="flex items-center content-center select-none border border-[var(--color-base-content)] w-fit rounded-xl overflow-clip shadow-sm">
         {children}
       </div>
     </CounterContext.Provider>
