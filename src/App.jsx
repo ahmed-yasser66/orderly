@@ -1,13 +1,15 @@
 import { createBrowserRouter, RouterProvider } from "react-router";
 import { Provider } from "react-redux";
+
 import Layout from "./components/Layout";
 import store from "./features/store";
 
 import Button from "./components/Button";
 import Navbar from "./components/navbar";
 import Table from "./components/Table";
-import SignUp from "./pages/SignUp";
-import SignIn from "./pages/SignIn";
+import Auth from "./components/Auth";
+import LoginForm from "./components/LoginForm";
+import SignUp from "./components/SignUp";
 import Home from "./components/Home";
 
 function App() {
@@ -18,8 +20,7 @@ function App() {
       children: [
         {
           index: true,
-          element: <SignIn />,
-          // element: <A />,
+          element: <Auth />,
         },
         {
           path: "signup",
@@ -37,7 +38,6 @@ function App() {
     <Provider store={store}>
       <RouterProvider router={router}></RouterProvider>
     </Provider>
-
     //   <>
     //     <Navbar />
     // <div className="container mx-auto p-15 space-x-6">
