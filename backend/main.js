@@ -4,6 +4,9 @@ const path = require("path");
 const cors = require("cors");
 const app = express();
 const port = 3000;
+require("dotenv").config();
+const DB = process.env.DB;
+
 app.use(cors());
 
 // app.get("/order/:orderId", (req, res) => {});
@@ -15,9 +18,7 @@ const router = require("./routs/router");
 app.use("/orderly", router);
 
 mongoose
-  .connect(
-    "mongodb+srv://3adool:3adoolDB@orderly.f1nd6uf.mongodb.net/?retryWrites=true&w=majority&appName=orderly"
-  )
+  .connect(DB)
   .then((res) => {
     app.listen(port, () => {
       console.log(`Example app listening at http://localhost:${port}`);
