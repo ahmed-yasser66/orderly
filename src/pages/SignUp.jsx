@@ -32,7 +32,7 @@ export default function SignUp() {
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-base-200">
-      <div className="card w-full max-w-md bg-white shadow-xl ">
+      <div className="card w-full max-w-md bg-white shadow-sm ">
         <div className="card-body">
           <h2 className="text-3xl font-bold text-center">Sign Up</h2>
           <p className="text-sm text-center text-gray-500 mb-4">

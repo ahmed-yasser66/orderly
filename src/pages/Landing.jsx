@@ -1,9 +1,11 @@
+import { useNavigate } from "react-router-dom";
 import Button from "../components/Button";
 import Container from "../components/Container";
 import Pagination from "../components/Pagination";
 import RecentOrder from "../components/RecentOrder";
 
 export default function Landing() {
+  const navigate = useNavigate();
   return (
     <Container>
       <section className="h-[calc(100vh_-_250px)]">
@@ -16,7 +18,7 @@ export default function Landing() {
               <thead className="font-bold">
                 <tr>
                   <th>#</th>
-                  <th>Order ID</th>
+                  <th>Space ID</th>
                   <th>Created At</th>
                   <th>Total</th>
                 </tr>
@@ -36,6 +38,7 @@ export default function Landing() {
             children={"Create New Space!"}
             variant="accent"
             className="!p-5"
+            onClick={() => navigate("/create-space")}
           />
         </div>
       </section>
