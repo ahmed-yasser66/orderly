@@ -1,5 +1,6 @@
 import { createContext, useContext, useState } from "react";
 import { MinusIcon, PlusIcon } from "../assets/icons";
+import { toArabicNumeral } from "../utils/toArabicNumber";
 
 const CounterContext = createContext();
 
@@ -10,7 +11,7 @@ function Counter({ children }) {
 
   return (
     <CounterContext.Provider value={{ increment, decrement, count }}>
-      <div className="flex items-center content-center select-none border border-[var(--color-base-content)] w-fit rounded-xl overflow-clip shadow-md">
+      <div className="flex items-center content-center select-none w-fit rounded-sm overflow-clip text-primary">
         {children}
       </div>
     </CounterContext.Provider>
@@ -22,7 +23,7 @@ function Increment() {
   return (
     <div
       onClick={() => increment()}
-      className="bg-[var(--color-base-200)] size-8 flex items-center justify-center cursor-pointer"
+      className="bg-base-200 size-8 flex items-center justify-center cursor-pointer"
     >
       <PlusIcon />
     </div>
@@ -34,7 +35,7 @@ function Decrement() {
   return (
     <div
       onClick={() => decrement()}
-      className="bg-[var(--color-base-200)] size-8 flex items-center justify-center cursor-pointer"
+      className="bg-base-200 size-8 flex items-center justify-center cursor-pointer"
     >
       <MinusIcon />
     </div>
@@ -43,8 +44,8 @@ function Decrement() {
 function Count() {
   const { count } = useContext(CounterContext);
   return (
-    <div className="bg-[var(--color-primary-content)] size-8 text-center leading-8 font-semibold">
-      {count}
+    <div className="bg-primary-content size-8 text-lg text-center leading-8 font-semibold">
+      {toArabicNumeral(count)}
     </div>
   );
 }

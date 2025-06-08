@@ -6,6 +6,7 @@ import store from "./features/store";
 import LoginForm from "./components/LoginForm";
 import SignUp from "./components/SignUp";
 import Landing from "./pages/Landing";
+import SpaceScreen from "./pages/SpaceScreen";
 
 function App() {
   const router = createBrowserRouter([
@@ -24,6 +25,10 @@ function App() {
         {
           path:"home",
           element: <Landing/>
+        },
+        {
+          path:"checkout",
+          element: <SpaceScreen/>
         }
       ],
     },
