@@ -4,6 +4,8 @@ import { useNavigate } from "react-router";
 import { api } from "../Firebase/api_util"; // Your API layer
 import { EmailIcon, PasswordIcon } from "../assets/icons/icons";
 import { handleWarning } from "./alerts";
+import { useDispatch, useSelector } from "react-redux";
+import { setAdmin } from "../features/slices/adminReducer";
 // import { FcGoogle as GoogleIcon } from "react-icons/fc"; // Fallback if <feFuncG /> was a typo
 
 export default function Auth() {
@@ -13,6 +15,10 @@ export default function Auth() {
   const [user, setUser] = useState(null);
   const [error, setError] = useState("");
   const navigate = useNavigate();
+  const admin = useSelector((state) => state.admin);
+  const dispatch = useDispatch();
+
+  console.log(admin);
 
   const handleEmailLogin = async (e) => {
     e.preventDefault();
@@ -28,8 +34,10 @@ export default function Auth() {
         await api.auth.signOut(); // Prevent access
         return;
       }
-      setUser(user);
+
       // ✅ Continue login
+      dispatch(setAdmin({ id: user.uid }));
+
       navigate("/home"); // or your home page
     } catch (err) {
       switch (err.code) {
@@ -48,6 +56,9 @@ export default function Auth() {
       const result = await api.auth.loginWithGoogle();
       const user = result.user;
       setUser(user);
+      console.log(user);
+      dispatch(setAdmin({ id: user.uid }));
+
       navigate("/home");
     } catch (err) {
       setError(err.message);

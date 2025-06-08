@@ -13,6 +13,7 @@ import LoginForm from "./components/LoginForm";
 import Home from "./components/Home";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignIn";
+import TestDashBoard from "./components/TestDashBoard";
 
 function App() {
   const router = createBrowserRouter([
@@ -22,7 +23,7 @@ function App() {
       children: [
         {
           index: true,
-          element: <SignIn />,
+          element: <Auth />,
         },
         {
           path: "signup",
@@ -30,7 +31,7 @@ function App() {
         },
         {
           path: "home",
-          element: <Home />,
+          element: <TestDashBoard />,
         },
       ],
     },

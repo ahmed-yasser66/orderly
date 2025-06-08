@@ -7,6 +7,8 @@ import {
   getDocs,
   updateDoc,
   deleteDoc,
+  query,
+  where,
 } from 'firebase/firestore';
 import {
   createUserWithEmailAndPassword,
@@ -17,12 +19,11 @@ import {
   browserSessionPersistence,
   setPersistence,
   sendEmailVerification,
-  fetchSignInMethodsForEmail
 
 } from "firebase/auth";
 
 import { auth, provider, db } from "../Firebase/config"; // Ensure `provider` is the Google provider
-
+import { ADMIN_KEY, MENUEITEMS_TBL, PARTICIPANTS_TBL, SPACES_TBL } from "../Firebase/tables"
 export const api = {
   auth: {
     // Email Sign-Up
@@ -77,23 +78,29 @@ export const api = {
 
   space: {
     // Create a new space with a known ID (usually generated UUID)
-    createSpace: async (spaceId, adminId, spaceName, isClosed = false) => {
-      await setDoc(doc(db, 'spaces', spaceId), {
-        adminId,
-        name: spaceName,
+    //{adminId,description,isColsed}
+    createSpace: async (newSpace) => {
+      // Reference a new document with auto-generated ID
+      const newSpaceDoc = doc(collection(db, SPACES_TBL));
+      // Get the auto-generated ID
+      const spaceId = newSpaceDoc.id;
+
+      await setDoc(newSpaceDoc, {
+        ...newSpace,
         createdAt: serverTimestamp(),
-        isClosed: isClosed
       });
+
+      return spaceId;
     },
 
     // Add a menu item to a space
     addMenuItem: async (spaceId, itemId, itemData) => {
-      await setDoc(doc(db, 'spaces', spaceId, 'menuItems', itemId), itemData);
+      await setDoc(doc(db, SPACES_TBL, spaceId, MENUEITEMS_TBL, itemId), itemData);
     },
 
     // Add a participant (with generated or custom ID)
     addParticipant: async (spaceId, participantId, name) => {
-      await setDoc(doc(db, 'spaces', spaceId, 'participants', participantId), {
+      await setDoc(doc(db, SPACES_TBL, spaceId, PARTICIPANTS_TBL, participantId), {
         name,
         joinedAt: serverTimestamp(),
       });
@@ -101,19 +108,19 @@ export const api = {
 
     // Get all participants in a space
     getParticipants: async (spaceId) => {
-      const snapshot = await getDocs(collection(db, 'spaces', spaceId, 'participants'));
+      const snapshot = await getDocs(collection(db, SPACES_TBL, spaceId, PARTICIPANTS_TBL));
       return snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
     },
 
     // Get all menu items in a space
     getMenuItems: async (spaceId) => {
-      const snapshot = await getDocs(collection(db, 'spaces', spaceId, 'menuItems'));
+      const snapshot = await getDocs(collection(db, SPACES_TBL, spaceId, MENUEITEMS_TBL));
       return snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
     },
 
     // Get details of a specific space
     getSpaceDetails: async (spaceId) => {
-      const docSnap = await getDoc(doc(db, 'spaces', spaceId));
+      const docSnap = await getDoc(doc(db, SPACES_TBL, spaceId));
       return docSnap.exists() ? docSnap.data() : null;
     },
   },
@@ -121,7 +128,7 @@ export const api = {
   participant: {
     // ✅ Submit or update a participant's part in the shared space order
     submitOrder: async (spaceId, participantId, items) => {
-      const spaceRef = doc(db, 'spaces', spaceId);
+      const spaceRef = doc(db, SPACES_TBL, spaceId);
       const docSnap = await getDoc(spaceRef);
       if (!docSnap.exists()) return;
 
@@ -175,15 +182,47 @@ export const api = {
         .filter(Boolean);
 
       return myItems;
-    }
+    },
+
+
   },
 
   order: {
     // Get all orders in a space (for admin or participants)
-    getAllOrders: async (spaceId) => {
-      const snapshot = await getDocs(collection(db, 'spaces', spaceId, 'orders'));
-      return snapshot.docs.map(doc => ({ participantId: doc.id, ...doc.data() }));
+    // getAllOrders: async (spaceId) => {
+    //   const snapshot = await getDocs(collection(db, SPACES_TBL, spaceId, 'orders'));
+    //   return snapshot.docs.map(doc => ({ participantId: doc.id, ...doc.data() }));
+    // },
+    getSpacesByAdmin: async (adminId) => {
+      const querySnapshot = await getDocs(
+        query(collection(db, SPACES_TBL), where("adminId", "==", adminId))
+      );
+
+      return querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
     },
+    getAllOrders: async (adminId) => {
+      const spaces = await api.order.getSpacesByAdmin(adminId);
+      const result = [];
+
+      for (const space of spaces) {
+        const orders = space.orders || [];
+        result.push({
+          spaceId: space.id,
+          createdAt: space.createdAt,
+          spaceName: space.name,
+          orders: orders
+        });
+      }
+
+      return result;
+    },
+
+    getFavouritesOrders: async (adminId) => {
+      const orders = await api.order.getAllOrders(adminId);
+      console.log(orders);
+      return orders.filter(o => o.isFavourite);
+    },
+
   },
 
   utils: {
