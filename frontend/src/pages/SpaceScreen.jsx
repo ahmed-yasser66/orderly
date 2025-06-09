@@ -6,7 +6,12 @@ import { useParams } from "react-router";
 import { api } from "../Firebase/api_util.js";
 import { setMenu } from "../features/slices/singlemenu.js";
 import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
+
 export default function SpaceScreen() {
+  const { arr } = useSelector((state) => state.single);
+  console.log("arrr", arr);
+
   const dispatch = useDispatch();
   const spaceId = useParams().spaceId;
   const [menu, setremoteMenu] = useState([]);
@@ -22,10 +27,10 @@ export default function SpaceScreen() {
     console.log("menu is ", menu);
     menu.forEach((m) => {
       // console.log(""m.name, m.price);
-
-      dispatch(setMenu({ name: m.name, price: m.price }));
+      if (arr.length === 0) {
+        dispatch(setMenu({ name: m.name, price: m.price }));
+      }
     });
-    setMenu();
   }, [menu]);
 
   return (
