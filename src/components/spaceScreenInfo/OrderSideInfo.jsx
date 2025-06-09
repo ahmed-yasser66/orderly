@@ -2,7 +2,7 @@ import Button from "../Button";
 import MySelection from "./MySelection";
 import CollectiveOrder from "./CollectiveOrder";
 import Participants from "./Participants";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import { useDispatch } from "react-redux";
 import { setFinalizedOrder } from "../../features/slices/orderSlice";
 
