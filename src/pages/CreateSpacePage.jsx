@@ -186,7 +186,7 @@ const CreateSpacePage = () => {
   };
 
   return (
-    <div className="bg-base-100 text-base-content">
+    <div className="bg-base-100 text-base-content my-10">
       <h1 className="text-4xl font-bold mb-8 text-center">
         Create New Ordering Space
       </h1>
@@ -199,7 +199,6 @@ const CreateSpacePage = () => {
           setDescription={setDescription}
           restaurantName={restaurantName}
           setRestaurantName={setRestaurantName}
-          handleCancel={handleCancel}
         />
 
         <div className="card bg-base-200 shadow-sm p-6 rounded-box">
@@ -230,6 +229,7 @@ const CreateSpacePage = () => {
                 setSelectedFavouriteMenu={setSelectedFavouriteMenu}
               />
             )}
+          <FormActionButtons onCancel={handleCancel} />
           </div>
         </div>
 
