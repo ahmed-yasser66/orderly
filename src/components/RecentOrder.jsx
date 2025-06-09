@@ -1,3 +1,5 @@
+import { formatCurrency } from "../utils/formatCurrency";
+
 export default function RecentOrder({
   idx = 1,
   id = 242424,
@@ -9,7 +11,7 @@ export default function RecentOrder({
       <th>{idx}</th>
       <td>{id}</td>
       <td>{date}</td>
-      <td>$ {total}</td>
+      <td>{formatCurrency(total)}</td>
     </tr>
   );
 }
