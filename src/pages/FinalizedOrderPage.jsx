@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import  { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
 import Container from '../components/Container';
@@ -6,16 +6,6 @@ import Button from '../components/Button';
 import Table from '../components/Table';
 import Avatar from '../components/Avatar';
 import { icons } from '../assets/icons/icons'; // Assuming icons are exported from here
-
-import React, { useEffect } from "react";
-import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import Container from "../components/Container";
-import Button from "../components/Button";
-import Table from "../components/Table";
-import Avatar from "../components/Avatar";
-import { icons } from "../assets/icons/icons"; // Assuming icons are exported from here
-
 
 const FinalizedOrderPage = () => {
   const finalizedOrder = useSelector((state) => state.order.finalizedOrder);
