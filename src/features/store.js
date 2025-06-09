@@ -1,7 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 import spaceReducer from './slices/spaceReducer'
 import participantsReducer from './slices/participantsReducer';
-import orderReducer from './slices/orderReducer';
+import orderReducer from './slices/orderSlice';
 import adminReducer from './slices/adminReducer';
 import menuReducer from "./slices/menuSlice";
 

@@ -14,7 +14,7 @@ const FinalizedOrderPage = () => {
   useEffect(() => {
     if (!finalizedOrder) {
       // Redirect if no finalized order data is present
-      navigate("/finalized-order"); // Or wherever appropriate
+      navigate("/home"); // Or wherever appropriate
     }
   }, [finalizedOrder, navigate]);
 
@@ -37,7 +37,7 @@ const FinalizedOrderPage = () => {
   }));
 
   const handleBackToSpaces = () => {
-    navigate("/finalized-order"); // Adjust as per your routing
+    navigate("/home"); // Adjust as per your routing
   };
 
   const handleCopyOrder = () => {
