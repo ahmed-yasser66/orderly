@@ -35,3 +35,48 @@ export const PasswordIcon = () => (
     </g>
   </svg>
 );
+
+export const ArrowLeftIcon = () => (
+  <svg
+    className="h-[1em] opacity-50"
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+  >
+    <g
+      strokeLinejoin="round"
+      strokeLinecap="round"
+      strokeWidth="2.5"
+      fill="none"
+      stroke="currentColor"
+    >
+      <path d="m12 19-7-7 7-7"></path>
+      <path d="M19 12H5"></path>
+    </g>
+  </svg>
+);
+
+export const CopyIcon = () => (
+  <svg
+    className="h-[1em] opacity-50"
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+  >
+    <g
+      strokeLinejoin="round"
+      strokeLinecap="round"
+      strokeWidth="2.5"
+      fill="none"
+      stroke="currentColor"
+    >
+      <rect width="14" height="14" x="8" y="8" rx="2" ry="2"></rect>
+      <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path>
+    </g>
+  </svg>
+);
+
+export const icons = {
+  Email: EmailIcon,
+  Password: PasswordIcon,
+  arrowLeft: ArrowLeftIcon,
+  copy: CopyIcon,
+};

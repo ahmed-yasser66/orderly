@@ -35,3 +35,6 @@
   --depth: 0.5;
   --noise: 1;
 }
+body {
+  font-family: "Poppins", sans-serif;
+}
