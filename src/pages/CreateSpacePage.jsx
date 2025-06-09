@@ -34,8 +34,8 @@ const CreateSpacePage = () => {
   const navigate = useNavigate();
   const admin = useSelector((state) => state.admin);
   const favouriteMenus = useSelector((state) => state.menu.favouriteMenus);
-  console.log(favouriteMenus);
-  console.log("select menu => " + selectedFavouriteMenu);
+  // console.log(favouriteMenus);
+  // console.log("select menu => " + selectedFavouriteMenu);
 
   useEffect(() => {
     // const dummyMenus = [
@@ -123,19 +123,21 @@ const CreateSpacePage = () => {
     const itemsCollection =
       menuSetup.menuOption === "createNew"
         ? menuSetup.menuItems
-        : favouriteMenus;
+        : favouriteMenus.find((item) => item.id === selectedFavouriteMenu)
+            .items;
+
     // console.log("kkkkkkkkkkkkkkkkkkkkkkkkkkkk");
     // console.log(itemsCollection);
     // console.log(itemsCollection[itemsCollection.length - 1]);
-    let selectedMeun = itemsCollection.find((item) => {
-      // console.log("inside find");
-      // console.log(item.id);
-      // console.log(selectedFavouriteMenu);
-      return item.id === selectedFavouriteMenu;
-    }); // Check if any item has an empty name{
-    console.log(selectedMeun);
-    for (let idx = 0; idx < selectedMeun.items.length; idx++) {
-      const item = selectedMeun.items[idx];
+    // let selectedMeun = itemsCollection.find((item) => {
+    //   console.log("inside find");
+    //   console.log(item.id);
+    //   console.log(selectedFavouriteMenu);
+    //   return item.id === selectedFavouriteMenu;
+    // }); // Check if any item has an empty name{
+    // console.log(selectedMeun);
+    for (let idx = 0; idx < itemsCollection.length; idx++) {
+      const item = itemsCollection[idx];
       const itemId = `${spaceId}-${idx}`; // or use item.id if available
       const itemData = {
         ...item,
