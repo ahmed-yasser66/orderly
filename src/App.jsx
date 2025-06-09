@@ -12,8 +12,13 @@ import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
 import TestDashBoard from "./components/TestDashBoard";
 import Landing from "./pages/Landing";
-import CreateSpacePage from "./pages/CreateSpacePage.jsx";
+import SpaceScreen from "./pages/SpaceScreen";
+import CreateSpacePage from "./pages/CreateSpacePage";
+import FinalizedOrderPage from "./pages/FinalizedOrderPage";
 import ComponentsTestPage from "./pages/ComponentsTestPage";
+import UserName from "./components/userNamePopup";
+import { Suspense } from "react";
+import Spinner from "./components/Spinner";
 
 function App() {
   const router = createBrowserRouter([
@@ -34,8 +39,16 @@ function App() {
           element: <Landing />,
         },
         {
+          path: "checkout",
+          element: <SpaceScreen />,
+        },
+        {
           path: "create-space",
           element: <CreateSpacePage />,
+        },
+        {
+          path: "finalized-order",
+          element: <FinalizedOrderPage />,
         },
         {
           path: "components-test",
@@ -51,7 +64,9 @@ function App() {
 
   return (
     <Provider store={store}>
-      <RouterProvider router={router}></RouterProvider>
+      <Suspense fallback={<Spinner/>}>
+        <RouterProvider router={router}></RouterProvider>
+      </Suspense>
     </Provider>
   );
 }
