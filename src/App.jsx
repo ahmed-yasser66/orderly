@@ -7,6 +7,8 @@ import LoginForm from "./components/LoginForm";
 import SignUp from "./components/SignUp";
 import Landing from "./pages/Landing";
 import SpaceScreen from "./pages/SpaceScreen";
+import { Suspense } from "react";
+import Spinner from "./components/Spinner";
 
 function App() {
   const router = createBrowserRouter([
@@ -23,20 +25,22 @@ function App() {
           element: <SignUp />,
         },
         {
-          path:"home",
-          element: <Landing/>
+          path: "home",
+          element: <Landing />,
         },
         {
-          path:"checkout",
-          element: <SpaceScreen/>
-        }
+          path: "checkout",
+          element: <SpaceScreen />,
+        },
       ],
     },
   ]);
 
   return (
     <Provider store={store}>
-      <RouterProvider router={router}></RouterProvider>
+      <Suspense fallback={<Spinner/>}>
+        <RouterProvider router={router}></RouterProvider>
+      </Suspense>
     </Provider>
   );
 }
