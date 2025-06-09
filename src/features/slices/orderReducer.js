@@ -6,7 +6,7 @@ const createOrder = () => ({
   spaceId: -1, // Default to -1 if no space is selected
   selectedItems: [],  // [{ itemId, quantity }]
   isFavourite: false,
-  createdAt: serverTimestamp(), // only used when saving to Firestore
+  createdAt: new Date().toISOString(), // only used when saving to Firestore
 });
 
 const orderSlice = createSlice({

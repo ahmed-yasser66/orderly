@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { api } from "../Firebase/api_util";
-import { createSpace } from "../features/slices/spaceReducer";
+// import { createSpace } from "../features/slices/spaceReducer";
 import { addMenuItem } from "../features/slices/menuReducer";
 
 export default function Home() {
@@ -21,7 +21,7 @@ export default function Home() {
     };
     const spaceId = await api.space.createSpace(staticNewSpace);
     staticNewSpace.id = spaceId;
-    dispatch(createSpace(staticNewSpace));
+    // dispatch(createSpace(staticNewSpace));
     console.log(spaceId);
   };
   const showSpaces = async () => {

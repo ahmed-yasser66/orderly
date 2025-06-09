@@ -1,18 +1,17 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const menuSlice = createSlice({
-  name: 'menu',
+  name: 'menuBakr',
   initialState: [],
   reducers: {
     addMenuItem: (state, action) => {
-      const { id, name, price, spaceId } = action.payload;
+      const { id, name, price } = action.payload;
       if (!state.find(item => item.id === id)) {
         state.push({
           id,
           name,
           price,
           participants: [],
-          spaceId: spaceId || -1, // Default to -1 if spaceId is not provided
         });
       }
     },

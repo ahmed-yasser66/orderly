@@ -87,10 +87,23 @@ export const api = {
 
       await setDoc(newSpaceDoc, {
         ...newSpace,
-        createdAt: serverTimestamp(),
+        createdAt: new Date().toISOString(), // Use serverTimestamp() if you want to use Firestore's server time
+        orders: [],
+        adminId: newSpace.adminId, // Ensure adminId is included
+        status: 'active', // Default status
       });
 
-      return spaceId;
+      // Step 4: Fetch the saved document
+      const space = await getDoc(newSpaceDoc);
+      const data = space.data();
+
+      // Convert createdAt Timestamp to ISO string or Date
+      // const createdAt = data.createdAt ? data.createdAt.toDate().toISOString() : null;
+
+      return {
+        id: spaceId,
+        ...data,
+      };
     },
 
     // Add a menu item to a space
@@ -123,6 +136,47 @@ export const api = {
       const docSnap = await getDoc(doc(db, SPACES_TBL, spaceId));
       return docSnap.exists() ? docSnap.data() : null;
     },
+    getSpaceById: async (spaceId) => {
+      const docSnap = await getDoc(doc(db, SPACES_TBL, spaceId));
+      if (!docSnap.exists()) return null;
+
+      const data = docSnap.data();
+      return {
+        id: docSnap.id,
+        ...data,
+      };
+    },
+    getFavouriteMenuItemsByAdmin: async (adminId) => {
+      const adminSpaces = await api.order.getSpacesByAdmin(adminId);
+      console.log(adminSpaces)
+      // Filter spaces where isFavourite is true
+      const favouriteSpaces = adminSpaces.filter(space => space.isFavourite === true);
+      console.log(favouriteSpaces);
+      const favouriteMenuItems = [];
+
+      for (const space of favouriteSpaces) {
+        const menuItems = await api.space.getMenuItems(space.id);
+
+        // Optionally, filter menu items too if needed
+        // const filteredItems = menuItems.filter(item => item.isFavourite === true);
+
+
+        favouriteMenuItems.push({
+          id: space.id,
+          name: space.spaceName || space.name || "Unnamed Menu", // fallback if no name
+          items: menuItems.map(item => ({
+            name: item.name,
+            price: item.price,
+          })),
+        });
+      }
+
+      console.log(favouriteMenuItems);
+      return favouriteMenuItems;
+
+    }
+
+
   },
 
   participant: {

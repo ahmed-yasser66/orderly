@@ -41,6 +41,10 @@ function App() {
           path: "components-test",
           element: <ComponentsTestPage />,
         },
+        {
+          path: "space/:spaceId",
+          element: <ComponentsTestPage />,
+        },
       ],
     },
   ]);

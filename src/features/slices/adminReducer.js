@@ -1,8 +1,10 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice, current } from '@reduxjs/toolkit';
 import { api } from '../../Firebase/api_util';
 
 const initialState = {
   id: 0,
+  currentSpace: -1, // Current space the admin is managing
+  currentOrder: -1, // Current order being processed
   spaces: [],
   orders: [],
   status: 'idle', // for loading state
@@ -33,6 +35,12 @@ const adminSlice = createSlice({
     addOrderToAdmin: (state, action) => {
       state.orders.push(action.payload.order);
     },
+    setCurrentSpace: (state, action) => {
+      state.currentSpace = action.payload;
+    },
+    setCurrentOrder: (state, action) => {
+      state.currentOrder = action.payload;
+    },
   },
 
   extraReducers: (builder) => {
@@ -44,7 +52,7 @@ const adminSlice = createSlice({
       .addCase(fetchAdminData.fulfilled, (state, action) => {
         state.status = 'succeeded';
         state.id = action.payload.adminId;
-        state.spaces = action.payload.spaces.map(s => s.id);
+        state.spaces = action.payload.spaces;
         state.orders = action.payload.ordersData.flatMap(o => o.orders || []);
       })
       .addCase(fetchAdminData.rejected, (state, action) => {
@@ -55,6 +63,6 @@ const adminSlice = createSlice({
 });
 
 // Export actions matching the reducer names exactly:
-export const { setAdmin, addSpaceToAdmin, addOrderToAdmin } = adminSlice.actions;
+export const { setAdmin, addSpaceToAdmin, addOrderToAdmin, setCurrentOrder, setCurrentSpace } = adminSlice.actions;
 
 export default adminSlice.reducer;
