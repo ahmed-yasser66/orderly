@@ -12,14 +12,13 @@ import Home from "./components/Home";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
 import Landing from "./pages/Landing";
-<<<<<<< HEAD
-import CreateSpacePage from "./pages/CreateSpacePage.jsx";
-import ComponentsTestPage from "./pages/ComponentsTestPage";
-=======
 import SpaceScreen from "./pages/SpaceScreen";
+import CreateSpacePage from "./pages/CreateSpacePage";
+import FinalizedOrderPage from "./pages/FinalizedOrderPage";
+import ComponentsTestPage from "./pages/ComponentsTestPage";
+import UserName from "./components/userNamePopup";
 import { Suspense } from "react";
 import Spinner from "./components/Spinner";
->>>>>>> origin/yasser
 
 function App() {
   const router = createBrowserRouter([
@@ -40,17 +39,20 @@ function App() {
           element: <Landing />,
         },
         {
-<<<<<<< HEAD
+          path: "checkout",
+          element: <SpaceScreen />,
+        },
+        {
           path: "create-space",
           element: <CreateSpacePage />,
         },
         {
+          path: "finalized-order",
+          element: <FinalizedOrderPage />,
+        },
+        {
           path: "components-test",
           element: <ComponentsTestPage />,
-=======
-          path: "checkout",
-          element: <SpaceScreen />,
->>>>>>> origin/yasser
         },
       ],
     },

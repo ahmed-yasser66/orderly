@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { setFavouriteMenus, addFavouriteMenu, saveSpaceData } from '../features/slices/menuSlice';
 
 import SpaceDetailsForm from '../components/SpaceDetailsForm';
@@ -20,6 +21,7 @@ const CreateSpacePage = () => {
   const [selectedFavouriteMenu, setSelectedFavouriteMenu] = useState('');
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const favouriteMenus = useSelector((state) => state.menu.favouriteMenus);
 
   useEffect(() => {
@@ -73,6 +75,7 @@ const CreateSpacePage = () => {
     if (menuOption === 'createNew' && saveAsFavourite) {
       dispatch(addFavouriteMenu({ id: Date.now().toString(), name: favouriteMenuName, items: menuItems }));
     }
+    navigate('/checkout');
   };
 
   const handleCancel = () => {
