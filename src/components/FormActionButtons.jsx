@@ -1,5 +1,5 @@
-import React from 'react';
-import Button from './Button';
+import React from "react";
+import Button from "./Button";
 
 const FormActionButtons = ({ onCancel }) => {
   return (
@@ -9,6 +9,9 @@ const FormActionButtons = ({ onCancel }) => {
       </Button>
       <Button type="submit" variant="primary">
         Create Space
+      </Button>
+      <Button variant="neutral" onClick={onCancel}>
+        Cancel
       </Button>
     </div>
   );
