@@ -7,7 +7,7 @@ const CounterContext = createContext();
 function Counter({ children }) {
   const [count, setCount] = useState(0);
   const increment = () => setCount((count) => count + 1);
-  const decrement = () => setCount((count) => (count == 1 ? count : count - 1));
+  const decrement = () => setCount((count) => (count === 0 ? 0 : count - 1));
 
   return (
     <CounterContext.Provider value={{ increment, decrement, count }}>
