@@ -1,6 +1,4 @@
-
 import { useEffect, useRef, useState } from "react";
-
 import { useNavigate } from "react-router";
 
 import Button from "../components/Button";
