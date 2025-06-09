@@ -14,7 +14,7 @@ app.use(cors());
 
 // app.post("order/:orderId", (req, res) => {});
 // app.post("order/:orderId", (req, res) => {});
-const router = require("./routs/router");
+const router = require("./routs/orderrouter");
 app.use("/orderly", router);
 
 mongoose

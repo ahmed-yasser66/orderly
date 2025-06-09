@@ -6,12 +6,12 @@ const orderSchema = new mongoose.Schema({
       price: Number,
       order: [
         {
-          id: String,
+          name: String,
+          price: Number,
           quantety: Number,
         },
       ],
     },
   ],
 });
-// export default mongoose.model("Order", orderSchema);
 module.exports = mongoose.model("Order", orderSchema);
