@@ -9,6 +9,7 @@ const Button = ({ children, variant = "primary", onClick, type = "button", class
     warning: "btn-warning",
     error: "btn-error",
     neutral: "btn-neutral",
+    ghost: "btn-ghost",
   }[variant];
 
   return (

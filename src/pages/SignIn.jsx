@@ -1,9 +1,9 @@
-// src/components/Auth.jsx
+import { Link } from "react-router";
+import { EmailIcon, PasswordIcon } from "../assets/icons/icons";
+import { handleWarning } from "../components/alerts";
+import { api } from "../Firebase/api_util";
 import { useState } from "react";
 import { useNavigate } from "react-router";
-import { api } from "../Firebase/api_util"; // Your API layer
-import { EmailIcon, PasswordIcon } from "../assets/icons/icons";
-import { handleWarning } from "./alerts";
 // import { FcGoogle as GoogleIcon } from "react-icons/fc"; // Fallback if <feFuncG /> was a typo
 
 export default function Auth() {
@@ -56,10 +56,7 @@ export default function Auth() {
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-base-200">
-      <form
-        className="card w-full max-w-md bg-white shadow-sm"
-        onSubmit={handleEmailLogin}
-      >
+      <div className="card w-full max-w-md bg-white shadow-sm ">
         <div className="card-body">
           <h2 className="text-3xl font-bold text-center">Sign in</h2>
           <p className="text-sm text-center text-gray-500 mb-4">
@@ -97,42 +94,38 @@ export default function Auth() {
             </label>
           </div>
 
-          <div className="form-control mb-4">
+          <div className="form-control mb-4 pl-10">
             <label className="label cursor-pointer">
-              <input
-                type="checkbox"
-                className="checkbox"
-                checked={rememberMe}
-                onChange={(e) => setRememberMe(e.target.checked)}
-              />
-              <span className="label-text ml-2">Remember password</span>
+              <input type="checkbox" className="checkbox" />
+              <span className="label-text ml-2">Remember me</span>
             </label>
           </div>
 
-          <button className="btn btn-primary w-full mb-2" type="submit">
+          <button
+            className="btn btn-primary w-full mb-2"
+            onClick={handleEmailLogin}
+          >
             Login
           </button>
-
-          <button
-            type="button"
+          <Link
+            to="/signup"
             className="btn btn-accent btn-outline-primary w-full mb-2"
-            onClick={() => navigate("/signup")}
           >
             Sign Up
-          </button>
+          </Link>
 
           <div className="divider">OR</div>
 
           <button
-            type="button"
             className="btn btn-outline w-full mb-2"
             onClick={handleGoogleLogin}
           >
-            {/* <GoogleIcon className="text-xl mr-2" /> */}
+            {/* Replace with a proper Google icon component */}
+            <span className="text-xl mr-2">G</span>
             Sign in with Google
           </button>
         </div>
-      </form>
+      </div>
     </div>
   );
 }

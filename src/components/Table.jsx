@@ -1,15 +1,15 @@
 const Table = ({ headers, data }) => {
   return (
-    <div className="overflow-x-auto rounded-box shadow-md border border-base-300 max-w-6xl mx-auto p-4">
+    <div className="overflow-x-auto rounded-box shadow-sm border border-base-300 max-w-6xl mx-auto p-4">
       <table className="table w-full text-base text-base-content text-center">
         <thead className="bg-base-200 text-base-content">
           <tr>
-            {headers.map((header, i) => (
+            {headers.map((header) => (
               <th
-                key={i}
+                key={header.key}
                 className="px-4 py-3 font-semibold tracking-wide"
               >
-                {header}
+                {header.label}
               </th>
             ))}
           </tr>
@@ -20,9 +20,9 @@ const Table = ({ headers, data }) => {
               key={i}
               className={i % 2 === 0 ? "bg-base-100" : "bg-base-200"}
             >
-              {row.map((cell, j) => (
-                <td key={j} className="px-4 py-3">
-                  {cell}
+              {headers.map((header) => (
+                <td key={header.key} className="px-4 py-3">
+                  {row[header.key]}
                 </td>
               ))}
             </tr>

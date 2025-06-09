@@ -3,10 +3,20 @@ import { Provider } from "react-redux";
 
 import Layout from "./components/Layout";
 import store from "./features/store";
+
+import Button from "./components/Button";
+import Table from "./components/Table";
+import Auth from "./components/Auth";
 import LoginForm from "./components/LoginForm";
-import SignUp from "./components/SignUp";
+import Home from "./components/Home";
+import SignIn from "./pages/SignIn";
+import SignUp from "./pages/SignUp";
 import Landing from "./pages/Landing";
 import SpaceScreen from "./pages/SpaceScreen";
+import CreateSpacePage from "./pages/CreateSpacePage";
+import FinalizedOrderPage from "./pages/FinalizedOrderPage";
+import ComponentsTestPage from "./pages/ComponentsTestPage";
+import UserName from "./components/userNamePopup";
 import { Suspense } from "react";
 import Spinner from "./components/Spinner";
 
@@ -18,7 +28,7 @@ function App() {
       children: [
         {
           index: true,
-          element: <LoginForm />,
+          element: <SignIn />,
         },
         {
           path: "signup",
@@ -32,6 +42,18 @@ function App() {
           path: "checkout",
           element: <SpaceScreen />,
         },
+        {
+          path: "create-space",
+          element: <CreateSpacePage />,
+        },
+        {
+          path: "finalized-order",
+          element: <FinalizedOrderPage />,
+        },
+        {
+          path: "components-test",
+          element: <ComponentsTestPage />,
+        },
       ],
     },
   ]);
@@ -42,6 +64,7 @@ function App() {
         <RouterProvider router={router}></RouterProvider>
       </Suspense>
     </Provider>
+  
   );
 }
 

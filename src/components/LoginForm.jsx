@@ -1,11 +1,7 @@
 // LoginForm.jsx
 import { useState } from "react";
 import { Link } from "react-router";
-import { auth } from "../Firebase/config";
-import {
-  signInWithEmailAndPassword,
-  sendPasswordResetEmail,
-} from "firebase/auth";
+import { api } from "../Firebase/api_util";
 
 export default function LoginForm() {
   const [email, setEmail] = useState("");
@@ -16,27 +12,7 @@ export default function LoginForm() {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      // Remember Me: Choose persistence
-      const persistence = rememberMe
-        ? "local" // stays signed in even after browser restart
-        : "session"; // signed out on tab/browser close
-
-      // Set persistence before login
-      const {
-        browserLocalPersistence,
-        browserSessionPersistence,
-        setPersistence,
-      } = await import("firebase/auth");
-
-      await setPersistence(
-        auth,
-        persistence === "local"
-          ? browserLocalPersistence
-          : browserSessionPersistence
-      );
-
-      // Login
-      await signInWithEmailAndPassword(auth, email, password);
+      api.auth.login(email, password, rememberMe);
       console.log("User logged in!");
     } catch (err) {
       setError(err.message);
@@ -49,7 +25,7 @@ export default function LoginForm() {
       return;
     }
     try {
-      await sendPasswordResetEmail(auth, email);
+      await api.auth.resetPassword(email);
       alert("Password reset email sent!");
     } catch (err) {
       setError(err.message);

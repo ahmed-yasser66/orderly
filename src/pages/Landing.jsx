@@ -1,21 +1,32 @@
+
 import { useEffect, useRef, useState } from "react";
+
+import { useNavigate } from "react-router";
+
 import Button from "../components/Button";
 import Container from "../components/Container";
 import Pagination from "../components/Pagination";
 import RecentOrder from "../components/RecentOrder";
 
 export default function Landing() {
-  const [displaySplashScreen, setDisplaySplashScreen] = useState(true);
+
+  const [displaySplashScreen, setDisplaySplashScreen] = useState(false);
 
   let timeoutID = useRef(null);
   useEffect(() => {
+    setDisplaySplashScreen(true);
+
     timeoutID.current = setTimeout(() => {
       setDisplaySplashScreen(false);
     }, 4000);
+
     return () => {
       clearTimeout(timeoutID.current);
     };
+    
   }, []);
+
+  const navigate = useNavigate();
 
   return (
     <Container>
@@ -33,7 +44,7 @@ export default function Landing() {
               <thead className="font-bold">
                 <tr>
                   <th>#</th>
-                  <th>Order ID</th>
+                  <th>Space ID</th>
                   <th>Created At</th>
                   <th>Total</th>
                 </tr>
@@ -53,6 +64,7 @@ export default function Landing() {
             children={"Create New Space!"}
             variant="accent"
             className="!p-5"
+            onClick={() => navigate("/create-space")}
           />
         </div>
       </section>
