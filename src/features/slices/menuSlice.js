@@ -1,59 +1,54 @@
 // src/features/slices/menuSlice.js
-import { createSlice } from '@reduxjs/toolkit';
-
+import { asyncThunkCreator, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { api } from '../../Firebase/api_util'
 /**
  * Redux slice for managing menu-related state, including favourite menus.
  * This slice handles actions for setting, adding, and saving menu data.
  */
+
+export const fetchFavouriteMenus = createAsyncThunk(
+  'menu/fetchFavouriteMenus',
+  async (adminId, thunkAPI) => {
+    try {
+      const menus = await api.space.getFavouriteMenuItemsByAdmin(adminId);
+      return menus;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  });
+
 const menuSlice = createSlice({
   name: 'menu',
   initialState: {
-    /**
-     * @type {Array<Object>} favouriteMenus - Stores a list of user's favourite menu configurations.
-     * Each object typically contains an `id`, `name`, and `items` array.
-     */
     favouriteMenus: [],
-    /**
-     * @type {string} status - Current status of async operations (e.g., 'idle', 'loading', 'succeeded', 'failed').
-     */
     status: 'idle',
-    /**
-     * @type {string|null} error - Stores any error messages from async operations.
-     */
     error: null,
   },
+
   reducers: {
-    /**
-     * Sets the entire list of favourite menus.
-     * @param {Object} state - The current state of the slice.
-     * @param {Object} action - The action object containing the payload.
-     * @param {Array<Object>} action.payload - The new array of favourite menus.
-     */
     setFavouriteMenus: (state, action) => {
       state.favouriteMenus = action.payload;
     },
-    /**
-     * Adds a new favourite menu to the existing list.
-     * @param {Object} state - The current state of the slice.
-     * @param {Object} action - The action object containing the payload.
-     * @param {Object} action.payload - The new favourite menu object to add.
-     */
     addFavouriteMenu: (state, action) => {
       state.favouriteMenus.push(action.payload);
     },
-    /**
-     * Placeholder reducer for saving space data.
-     * In a real application, this would typically trigger an asynchronous thunk
-     * to interact with a backend API (e.g., Firebase, REST API) to persist the data.
-     * @param {Object} state - The current state of the slice.
-     * @param {Object} action - The action object containing the payload.
-     * @param {Object} action.payload - The space data to be saved.
-     */
     saveSpaceData: (state, action) => {
       console.log('Saving space data:', action.payload);
-      // TODO: Implement actual API call or Firebase integration here.
-      // Example: dispatch(saveSpaceDataToApi(action.payload));
     },
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchFavouriteMenus.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(fetchFavouriteMenus.fulfilled, (state, action) => {
+        state.status = 'succeeded';
+        state.favouriteMenus = action.payload;
+      })
+      .addCase(fetchFavouriteMenus.rejected, (state, action) => {
+        state.status = 'failed';
+        state.error = action.error.message;
+      });
   },
 });
 

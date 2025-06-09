@@ -1,6 +1,5 @@
 import { createBrowserRouter, RouterProvider } from "react-router";
 import { Provider } from "react-redux";
-
 import Layout from "./components/Layout";
 import store from "./features/store";
 
@@ -11,6 +10,7 @@ import LoginForm from "./components/LoginForm";
 import Home from "./components/Home";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
+import TestDashBoard from "./components/TestDashBoard";
 import Landing from "./pages/Landing";
 import SpaceScreen from "./pages/SpaceScreen";
 import CreateSpacePage from "./pages/CreateSpacePage";
@@ -28,7 +28,7 @@ function App() {
       children: [
         {
           index: true,
-          element: <SignIn />,
+          element: <Auth />,
         },
         {
           path: "signup",
@@ -54,6 +54,10 @@ function App() {
           path: "components-test",
           element: <ComponentsTestPage />,
         },
+        {
+          path: "space/:spaceId",
+          element: <ComponentsTestPage />,
+        },
       ],
     },
   ]);
@@ -64,7 +68,6 @@ function App() {
         <RouterProvider router={router}></RouterProvider>
       </Suspense>
     </Provider>
-  
   );
 }
 

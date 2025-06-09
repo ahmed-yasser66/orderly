@@ -1,13 +1,17 @@
-import { configureStore } from "@reduxjs/toolkit";
-import tempReducer from "./slices/tempReducer";
+import { configureStore } from '@reduxjs/toolkit';
+import spaceReducer from './slices/spaceReducer'
+import participantsReducer from './slices/participantsReducer';
+import orderReducer from './slices/orderSlice';
+import adminReducer from './slices/adminReducer';
 import menuReducer from "./slices/menuSlice";
-import orderReducer from "./slices/orderSlice";
 
 const store = configureStore({
   reducer: {
-    temp: tempReducer,
+    space: spaceReducer,
     menu: menuReducer,
+    participants: participantsReducer,
     order: orderReducer,
+    admin: adminReducer,
   },
 });
 
