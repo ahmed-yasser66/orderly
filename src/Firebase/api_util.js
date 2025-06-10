@@ -9,6 +9,7 @@ import {
   deleteDoc,
   query,
   where,
+  addDoc,
 } from 'firebase/firestore';
 import {
   createUserWithEmailAndPassword,
@@ -112,11 +113,16 @@ export const api = {
     },
 
     // Add a participant (with generated or custom ID)
-    addParticipant: async (spaceId, participantId, name) => {
-      await setDoc(doc(db, SPACES_TBL, spaceId, PARTICIPANTS_TBL, participantId), {
-        name,
-        joinedAt: serverTimestamp(),
-      });
+    addParticipant: async (spaceId, name) => {
+      const participantsCollectionRef = collection(db, SPACES_TBL, spaceId, PARTICIPANTS_TBL);
+
+      // Add the document and get its reference
+      const newParticipantDoc = { name, joinedAt: new Date().toISOString(), selectedItems: [] };
+      const docRef = await addDoc(participantsCollectionRef, newParticipantDoc);
+      newParticipantDoc.id = docRef.id; // Add the auto-generated ID to the participant object
+
+      // ✅ Return the auto-generated document ID
+      return newParticipantDoc;
     },
 
     // Get all participants in a space
@@ -238,6 +244,16 @@ export const api = {
       return myItems;
     },
 
+    pushParticipantOrder: async (spaceId, participantId, selectedItems) => {
+      const ref = doc(db, SPACES_TBL, spaceId, PARTICIPANTS_TBL, participantId);
+      if (!Array.isArray(selectedItems)) {
+        selectedItems = []; // ✅ fallback to valid value
+      }
+      await setDoc(ref, {
+        selectedItems,
+        updatedAt: new Date().toISOString()
+      }, { merge: true });
+    }
 
   },
 

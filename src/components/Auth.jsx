@@ -58,7 +58,7 @@ export default function Auth() {
       setUser(user);
       console.log(user);
       dispatch(setAdmin({ id: user.uid }));
-
+      sessionStorage.setItem("internal-nav", "true");
       navigate("/home");
     } catch (err) {
       setError(err.message);

@@ -5,12 +5,11 @@ import Pagination from "../components/Pagination";
 import RecentOrder from "../components/RecentOrder";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState, useRef } from "react";
-import { fetchAdminData } from "../features/slices/adminReducer";
 import { fetchAdminSpaces, setSpaces } from "../features/slices/spaceReducer";
 
 export default function Landing() {
-
   const [displaySplashScreen, setDisplaySplashScreen] = useState(false);
+  const navigate = useNavigate();
 
   let timeoutID = useRef(null);
   useEffect(() => {
@@ -23,10 +22,8 @@ export default function Landing() {
     return () => {
       clearTimeout(timeoutID.current);
     };
-    
   }, []);
 
-  const navigate = useNavigate();
   const admin = useSelector((state) => state.admin);
   const spaceList = useSelector((state) => state.space.spaces);
   const dispatch = useDispatch();

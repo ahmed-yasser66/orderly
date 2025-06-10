@@ -1,7 +1,7 @@
 import { createBrowserRouter, RouterProvider } from "react-router";
 import { Provider } from "react-redux";
 import Layout from "./components/Layout";
-import store from "./features/store";
+import { store, persistor } from "./features/store";
 
 import Button from "./components/Button";
 import Table from "./components/Table";
@@ -21,6 +21,7 @@ import UserName from "./components/userNamePopup";
 import { Suspense } from "react";
 import Spinner from "./components/Spinner";
 import ContactUsPage from "./pages/ContactUsPage";
+import { PersistGate } from "redux-persist/integration/react";
 
 function App() {
   const router = createBrowserRouter([
@@ -74,9 +75,11 @@ function App() {
 
   return (
     <Provider store={store}>
-      <Suspense fallback={<Spinner />}>
-        <RouterProvider router={router}></RouterProvider>
-      </Suspense>
+      <PersistGate loading={<Spinner />} persistor={persistor}>
+        <Suspense fallback={<Spinner />}>
+          <RouterProvider router={router} />
+        </Suspense>
+      </PersistGate>
     </Provider>
   );
 }
