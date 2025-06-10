@@ -9,6 +9,7 @@ import {
 } from "../features/slices/menuSlice";
 
 import SpaceDetailsForm from "../components/SpaceDetailsForm";
+import Container from "../components/Container";
 import MenuSetupTabs from "../components/MenuSetupTabs";
 import CreateNewMenuSection from "../components/CreateNewMenuSection";
 import FavouriteMenuSection from "../components/FavouriteMenuSection";
@@ -136,7 +137,7 @@ const CreateSpacePage = () => {
   };
 
   return (
-    <div className="bg-base-100 text-base-content">
+    <Container>
       <h1 className="text-4xl font-bold mb-8 text-center">
         Create New Ordering Space
       </h1>
@@ -186,7 +187,7 @@ const CreateSpacePage = () => {
         {/* Form Action Buttons (Submit and Cancel) */}
         {/* <FormActionButtons onCancel={handleCancel} /> */}
       </form>
-    </div>
+    </Container>
   );
 };
 

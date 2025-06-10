@@ -16,9 +16,11 @@ import SpaceScreen from "./pages/SpaceScreen";
 import CreateSpacePage from "./pages/CreateSpacePage";
 import FinalizedOrderPage from "./pages/FinalizedOrderPage";
 import ComponentsTestPage from "./pages/ComponentsTestPage";
+import AboutUsPage from "./pages/AboutUsPage";
 import UserName from "./components/userNamePopup";
 import { Suspense } from "react";
 import Spinner from "./components/Spinner";
+import ContactUsPage from "./pages/ContactUsPage";
 
 function App() {
   const router = createBrowserRouter([
@@ -57,6 +59,14 @@ function App() {
         {
           path: "space/:spaceId",
           element: <SpaceScreen />,
+        },
+        {
+          path: "about-us",
+          element: <AboutUsPage />,
+        },
+        {
+          path: "contact-us",
+          element: <ContactUsPage />,
         },
       ],
     },
