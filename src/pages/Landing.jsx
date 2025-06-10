@@ -1,31 +1,16 @@
+
+
 import { useNavigate } from "react-router";
+
 import Button from "../components/Button";
 import Container from "../components/Container";
 import Pagination from "../components/Pagination";
 import RecentOrder from "../components/RecentOrder";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect, useState, useRef } from "react";
-import { fetchAdminData } from "../features/slices/adminReducer";
-import { fetchAdminSpaces, setSpaces } from "../features/slices/spaceReducer";
+import { useEffect } from "react"
+import { fetchAdminSpaces } from "../features/slices/spaceReducer";
 
 export default function Landing() {
-
-  const [displaySplashScreen, setDisplaySplashScreen] = useState(false);
-
-  let timeoutID = useRef(null);
-  useEffect(() => {
-    setDisplaySplashScreen(true);
-
-    timeoutID.current = setTimeout(() => {
-      setDisplaySplashScreen(false);
-    }, 4000);
-
-    return () => {
-      clearTimeout(timeoutID.current);
-    };
-    
-  }, []);
-
   const navigate = useNavigate();
   const admin = useSelector((state) => state.admin);
   const spaceList = useSelector((state) => state.space.spaces);
@@ -61,12 +46,9 @@ export default function Landing() {
   }
 
   // console.log(admin.spaces);
+
   return (
     <Container>
-      {!!displaySplashScreen && (
-        <div className="[background-image:url(./splashScreen.webp)] w-full h-screen inset-0 absolute bg-cover bg-center z-10 mask-cover mask-center  [mask-image:url(./splash.gif)]" />
-      )}
-
       <section className="h-[calc(100vh_-_250px)]">
         <p className="text-lg lg:text-3xl mb-6 font-semibold">Recent Spaces</p>
 

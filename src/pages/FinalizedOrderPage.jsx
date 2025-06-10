@@ -1,12 +1,14 @@
-import React, { useEffect } from 'react';
+import  { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
 import Container from '../components/Container';
 import Button from '../components/Button';
 import Table from '../components/Table';
 import Avatar from '../components/Avatar';
+
 import { icons } from '../assets/icons/icons';
 import { handleToast } from '../components/alerts';
+
 
 const FinalizedOrderPage = () => {
   const finalizedOrder = useSelector((state) => state.order.finalizedOrder);

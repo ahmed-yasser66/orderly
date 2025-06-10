@@ -9,14 +9,12 @@ const SpaceDetailsForm = ({
   setDescription,
   restaurantName,
   setRestaurantName,
-  handleCancel,
 }) => {
   return (
     <div className="card bg-base-200 shadow-sm p-6 rounded-box">
       <div className="card-body p-0">
         <div className="head">
           <h2 className="card-title text-2xl mb-4">Space Details</h2>
-          <FormActionButtons onCancel={handleCancel} />
         </div>
         <FormInput
           label="Space Name"

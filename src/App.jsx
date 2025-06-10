@@ -58,7 +58,7 @@ function App() {
         },
         {
           path: "space/:spaceId",
-          element: <ComponentsTestPage />,
+          element: <SpaceScreen />,
         },
         {
           path: "about-us",
@@ -74,7 +74,7 @@ function App() {
 
   return (
     <Provider store={store}>
-      <Suspense fallback={<Spinner/>}>
+      <Suspense fallback={<Spinner />}>
         <RouterProvider router={router}></RouterProvider>
       </Suspense>
     </Provider>
