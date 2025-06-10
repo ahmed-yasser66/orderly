@@ -1,26 +1,33 @@
 import { createBrowserRouter, RouterProvider } from "react-router";
+import { lazy, Suspense } from "react";
 import { Provider } from "react-redux";
+
+// Components
 import Layout from "./components/Layout";
+import Spinner from "./components/Spinner";
+
+// features
+import Auth from "./components/Auth";
 import store from "./features/store";
 
-import Button from "./components/Button";
-import Table from "./components/Table";
-import Auth from "./components/Auth";
-import LoginForm from "./components/LoginForm";
-import Home from "./components/Home";
-import SignIn from "./pages/SignIn";
-import SignUp from "./pages/SignUp";
-import TestDashBoard from "./components/TestDashBoard";
-import Landing from "./pages/Landing";
-import SpaceScreen from "./pages/SpaceScreen";
-import CreateSpacePage from "./pages/CreateSpacePage";
-import FinalizedOrderPage from "./pages/FinalizedOrderPage";
-import ComponentsTestPage from "./pages/ComponentsTestPage";
-import AboutUsPage from "./pages/AboutUsPage";
-import UserName from "./components/userNamePopup";
-import { Suspense } from "react";
-import Spinner from "./components/Spinner";
-import ContactUsPage from "./pages/ContactUsPage";
+// Pages
+const SignUp = lazy(() => import("./pages/SignUp"));
+const Landing = lazy(() => import("./pages/Landing"));
+const SpaceScreen = lazy(() => import("./pages/SpaceScreen"));
+const CreateSpacePage = lazy(() => import("./pages/CreateSpacePage"));
+const FinalizedOrderPage = lazy(() => import("./pages/FinalizedOrderPage"));
+const ComponentsTestPage = lazy(() => import("./pages/ComponentsTestPage"));
+const AboutUsPage = lazy(() => import("./pages/AboutUsPage"));
+const ContactUsPage = lazy(() => import("./pages/ContactUsPage"));
+
+// import SignUp from "./pages/SignUp";
+// import Landing from "./pages/Landing";
+// import SpaceScreen from "./pages/SpaceScreen";
+// import CreateSpacePage from "./pages/CreateSpacePage";
+// import FinalizedOrderPage from "./pages/FinalizedOrderPage";
+// import ComponentsTestPage from "./pages/ComponentsTestPage";
+// import AboutUsPage from "./pages/AboutUsPage";
+// import ContactUsPage from "./pages/ContactUsPage";
 
 function App() {
   const router = createBrowserRouter([

@@ -1,13 +1,12 @@
-
-
+import { useEffect } from "react"
 import { useNavigate } from "react-router";
+import { useDispatch, useSelector } from "react-redux";
 
+// Components
 import Button from "../components/Button";
 import Container from "../components/Container";
 import Pagination from "../components/Pagination";
 import RecentOrder from "../components/RecentOrder";
-import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react"
 import { fetchAdminSpaces } from "../features/slices/spaceReducer";
 
 export default function Landing() {

@@ -1,11 +1,12 @@
 import  { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
+
+// Components
 import Container from '../components/Container';
 import Button from '../components/Button';
 import Table from '../components/Table';
 import Avatar from '../components/Avatar';
-
 import { icons } from '../assets/icons/icons';
 import { handleToast } from '../components/alerts';
 
