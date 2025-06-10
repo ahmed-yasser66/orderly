@@ -1,4 +1,6 @@
 import  { useState, useEffect } from "react";
+
+
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import {
@@ -9,7 +11,9 @@ import {
 } from "../features/slices/menuSlice";
 
 
+
 import SpaceDetailsForm from "../components/SpaceDetailsForm";
+import Container from "../components/Container";
 import MenuSetupTabs from "../components/MenuSetupTabs";
 import CreateNewMenuSection from "../components/CreateNewMenuSection";
 import FavouriteMenuSection from "../components/FavouriteMenuSection";
@@ -35,23 +39,8 @@ const CreateSpacePage = () => {
   const navigate = useNavigate();
   const admin = useSelector((state) => state.admin);
   const favouriteMenus = useSelector((state) => state.menu.favouriteMenus);
-  // console.log(favouriteMenus);
-  // console.log("select menu => " + selectedFavouriteMenu);
 
   useEffect(() => {
-    // const dummyMenus = [
-    //   {
-    //     id: "1",
-    //     name: "Deli Favourites",
-    //     items: [{ name: "Sandwich", price: "8.50" }],
-    //   },
-    //   {
-    //     id: "2",
-    //     name: "Pizza Night Menu",
-    //     items: [{ name: "Pepperoni Pizza", price: "15.00" }],
-    //   },
-    // ];
-    // dispatch(setFavouriteMenus(dummyMenus));
     dispatch(fetchFavouriteMenus(admin.id)); // Fetch favourite menus for the admin
   }, [dispatch, admin.id]);
 
@@ -127,16 +116,6 @@ const CreateSpacePage = () => {
         : favouriteMenus.find((item) => item.id === selectedFavouriteMenu)
             .items;
 
-    // console.log("kkkkkkkkkkkkkkkkkkkkkkkkkkkk");
-    // console.log(itemsCollection);
-    // console.log(itemsCollection[itemsCollection.length - 1]);
-    // let selectedMeun = itemsCollection.find((item) => {
-    //   console.log("inside find");
-    //   console.log(item.id);
-    //   console.log(selectedFavouriteMenu);
-    //   return item.id === selectedFavouriteMenu;
-    // }); // Check if any item has an empty name{
-    // console.log(selectedMeun);
     for (let idx = 0; idx < itemsCollection.length; idx++) {
       const item = itemsCollection[idx];
       const itemId = `${spaceId}-${idx}`; // or use item.id if available
@@ -145,31 +124,7 @@ const CreateSpacePage = () => {
       };
       await api.space.addMenuItem(spaceId, itemId, itemData); // Save under /spaces/{spaceId}/menuItems/{itemId}
     }
-    navigate("/checkout");
-    // dispatch(addSpaceToAdmin(lastSpace));
-
-    // If a new menu was created and marked as favourite, add it to Redux state
-    // if (menuOption === "createNew" && saveAsFavourite) {
-    //   dispatch(
-    //     addFavouriteMenu({
-    //       id: Date.now().toString(),
-    //       name: favouriteMenuName,
-    //       items: menuItems,
-    //     })
-    //   );
-    // }
-    // navigate("/home");
-    // dispatch(saveSpaceData(formData));
-
-    // if (menuOption === "createNew" && saveAsFavourite) {
-    //   dispatch(
-    //     addFavouriteMenu({
-    //       id: Date.now().toString(),
-    //       name: favouriteMenuName,
-    //       items: menuItems,
-    //     })
-    //   );
-    // }
+    navigate("/space/" + spaceId);
   };
 
   const handleCancel = () => {
@@ -186,7 +141,11 @@ const CreateSpacePage = () => {
   };
 
   return (
+
     <div className="bg-base-100 text-base-content my-10">
+
+    <Container>
+
       <h1 className="text-4xl font-bold mb-8 text-center">
         Create New Ordering Space
       </h1>
@@ -236,6 +195,7 @@ const CreateSpacePage = () => {
         {/* Form Action Buttons (Submit and Cancel) */}
         {/* <FormActionButtons onCancel={handleCancel} /> */}
       </form>
+    </Container>
     </div>
   );
 };

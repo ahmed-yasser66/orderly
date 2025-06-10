@@ -1,13 +1,22 @@
 import { createContext, useContext, useState } from "react";
 import { MinusIcon, PlusIcon } from "../assets/icons";
 import { toArabicNumeral } from "../utils/toArabicNumber";
-
+import { setQuantity } from "../features/slices/singlemenu";
+import { useDispatch } from "react-redux";
 const CounterContext = createContext();
 
-function Counter({ children }) {
+function Counter({ children, ind }) {
+  const dispatch = useDispatch();
   const [count, setCount] = useState(0);
-  const increment = () => setCount((count) => count + 1);
-  const decrement = () => setCount((count) => (count == 1 ? count : count - 1));
+  const increment = () => {
+    dispatch(setQuantity({ ind: ind, quantity: count + 1 }));
+    setCount((count) => count + 1);
+  };
+  const decrement = () => {
+    if (count == 0) return;
+    dispatch(setQuantity({ ind: ind, quantity: count - 1 }));
+    setCount((count) => count - 1);
+  };
 
   return (
     <CounterContext.Provider value={{ increment, decrement, count }}>
@@ -45,7 +54,7 @@ function Count() {
   const { count } = useContext(CounterContext);
   return (
     <div className="bg-primary-content size-8 text-lg text-center leading-8 font-semibold">
-      {toArabicNumeral(count)}
+      {count}
     </div>
   );
 }
