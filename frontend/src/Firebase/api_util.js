@@ -9,7 +9,8 @@ import {
   deleteDoc,
   query,
   where,
-} from 'firebase/firestore';
+  addDoc,
+} from "firebase/firestore";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
@@ -19,17 +20,24 @@ import {
   browserSessionPersistence,
   setPersistence,
   sendEmailVerification,
-
 } from "firebase/auth";
 
 import { auth, provider, db } from "../Firebase/config"; // Ensure `provider` is the Google provider
-import { ADMIN_KEY, MENUEITEMS_TBL, PARTICIPANTS_TBL, SPACES_TBL } from "../Firebase/tables"
+import {
+  ADMIN_KEY,
+  MENUEITEMS_TBL,
+  PARTICIPANTS_TBL,
+  SPACES_TBL,
+} from "../Firebase/tables";
 export const api = {
   auth: {
     // Email Sign-Up
     signUp: async (email, password) => {
-
-      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
       const user = userCredential.user;
 
       // ✅ Send verification email
@@ -37,9 +45,7 @@ export const api = {
 
       return userCredential; // You can also return a success message if needed
     },
-    isInUse: async (email) => {
-
-    },
+    isInUse: async (email) => {},
     isValidFormat: (email) => {
       return String(email)
         ?.toLowerCase()
@@ -55,7 +61,9 @@ export const api = {
     },
     // Email Login with Remember Me option
     login: async (email, password, rememberMe = false) => {
-      const persistence = rememberMe ? browserLocalPersistence : browserSessionPersistence;
+      const persistence = rememberMe
+        ? browserLocalPersistence
+        : browserSessionPersistence;
       await setPersistence(auth, persistence);
       return await signInWithEmailAndPassword(auth, email, password);
     },
@@ -73,7 +81,7 @@ export const api = {
     // Optional: Logout
     logout: async () => {
       return await auth.signOut();
-    }
+    },
   },
 
   space: {
@@ -90,7 +98,7 @@ export const api = {
         createdAt: new Date().toISOString(), // Use serverTimestamp() if you want to use Firestore's server time
         orders: [],
         adminId: newSpace.adminId, // Ensure adminId is included
-        status: 'active', // Default status
+        status: "active", // Default status
       });
 
       // Step 4: Fetch the saved document
@@ -108,27 +116,54 @@ export const api = {
 
     // Add a menu item to a space
     addMenuItem: async (spaceId, itemId, itemData) => {
-      await setDoc(doc(db, SPACES_TBL, spaceId, MENUEITEMS_TBL, itemId), itemData);
+      await setDoc(
+        doc(db, SPACES_TBL, spaceId, MENUEITEMS_TBL, itemId),
+        itemData
+      );
     },
+    updateMenuItem: async (spaceId, itemId, itemData) => {
+      const itemRef = doc(db, SPACES_TBL, spaceId, MENUEITEMS_TBL, itemId);
+      await updateDoc(itemRef, itemData);
+      // await updateDoc(doc(db, SPACES_TBL, spaceId, MENUEITEMS_TBL, itemId), itemData);
+    }, //    { id: 1, name: "", description: "", price: "" },
+    //    {id: 1, name: 'w', description: 'w', price: '33', quantity: 0}
 
     // Add a participant (with generated or custom ID)
-    addParticipant: async (spaceId, participantId, name) => {
-      await setDoc(doc(db, SPACES_TBL, spaceId, PARTICIPANTS_TBL, participantId), {
+    addParticipant: async (spaceId, name) => {
+      const participantsCollectionRef = collection(
+        db,
+        SPACES_TBL,
+        spaceId,
+        PARTICIPANTS_TBL
+      );
+
+      // Add the document and get its reference
+      const newParticipantDoc = {
         name,
-        joinedAt: serverTimestamp(),
-      });
+        joinedAt: new Date().toISOString(),
+        selectedItems: [],
+      };
+      const docRef = await addDoc(participantsCollectionRef, newParticipantDoc);
+      newParticipantDoc.id = docRef.id; // Add the auto-generated ID to the participant object
+
+      // ✅ Return the auto-generated document ID
+      return newParticipantDoc;
     },
 
     // Get all participants in a space
     getParticipants: async (spaceId) => {
-      const snapshot = await getDocs(collection(db, SPACES_TBL, spaceId, PARTICIPANTS_TBL));
-      return snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+      const snapshot = await getDocs(
+        collection(db, SPACES_TBL, spaceId, PARTICIPANTS_TBL)
+      );
+      return snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
     },
 
     // Get all menu items in a space
     getMenuItems: async (spaceId) => {
-      const snapshot = await getDocs(collection(db, SPACES_TBL, spaceId, MENUEITEMS_TBL));
-      return snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+      const snapshot = await getDocs(
+        collection(db, SPACES_TBL, spaceId, MENUEITEMS_TBL)
+      );
+      return snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
     },
 
     // Get details of a specific space
@@ -148,10 +183,12 @@ export const api = {
     },
     getFavouriteMenuItemsByAdmin: async (adminId) => {
       const adminSpaces = await api.order.getSpacesByAdmin(adminId);
-      console.log(adminSpaces)
+      console.log(adminSpaces);
       // Filter spaces where isFavourite is true
-      const favouriteSpaces = adminSpaces.filter(space => space.isFavourite === true);
-      console.log(favouriteSpaces);
+      const favouriteSpaces = adminSpaces.filter(
+        (space) => space.isFavourite === true
+      );
+
       const favouriteMenuItems = [];
 
       for (const space of favouriteSpaces) {
@@ -160,23 +197,18 @@ export const api = {
         // Optionally, filter menu items too if needed
         // const filteredItems = menuItems.filter(item => item.isFavourite === true);
 
-
         favouriteMenuItems.push({
           id: space.id,
           name: space.spaceName || space.name || "Unnamed Menu", // fallback if no name
-          items: menuItems.map(item => ({
+          items: menuItems.map((item) => ({
             name: item.name,
             price: item.price,
           })),
         });
       }
 
-      console.log(favouriteMenuItems);
       return favouriteMenuItems;
-
-    }
-
-
+    },
   },
 
   participant: {
@@ -192,7 +224,7 @@ export const api = {
       for (const newItem of items) {
         const { itemId, quantity } = newItem;
 
-        let itemOrder = existingOrders.find(order => order.itemId === itemId);
+        let itemOrder = existingOrders.find((order) => order.itemId === itemId);
         if (!itemOrder) {
           // Add new item entry
           existingOrders.push({
@@ -201,7 +233,9 @@ export const api = {
           });
         } else {
           // Check if participant already added
-          const existing = itemOrder.involved.find(i => i.participantId === participantId);
+          const existing = itemOrder.involved.find(
+            (i) => i.participantId === participantId
+          );
           if (existing) {
             existing.quantity = quantity; // Overwrite quantity
           } else {
@@ -215,7 +249,7 @@ export const api = {
 
     // ✅ Get only this participant's orders from the space's centralized order list
     getMyOrder: async (spaceId, participantId) => {
-      const spaceRef = doc(db, 'spaces', spaceId);
+      const spaceRef = doc(db, "spaces", spaceId);
       const docSnap = await getDoc(spaceRef);
       if (!docSnap.exists()) return null;
 
@@ -223,8 +257,10 @@ export const api = {
 
       // Filter to get only this participant’s involvement
       const myItems = allOrders
-        .map(order => {
-          const match = order.involved.find(i => i.participantId === participantId);
+        .map((order) => {
+          const match = order.involved.find(
+            (i) => i.participantId === participantId
+          );
           if (match) {
             return {
               itemId: order.itemId,
@@ -238,7 +274,20 @@ export const api = {
       return myItems;
     },
 
-
+    pushParticipantOrder: async (spaceId, participantId, selectedItems) => {
+      const ref = doc(db, SPACES_TBL, spaceId, PARTICIPANTS_TBL, participantId);
+      if (!Array.isArray(selectedItems)) {
+        selectedItems = []; // ✅ fallback to valid value
+      }
+      await setDoc(
+        ref,
+        {
+          selectedItems,
+          updatedAt: new Date().toISOString(),
+        },
+        { merge: true }
+      );
+    },
   },
 
   order: {
@@ -252,7 +301,7 @@ export const api = {
         query(collection(db, SPACES_TBL), where("adminId", "==", adminId))
       );
 
-      return querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+      return querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
     },
     getAllOrders: async (adminId) => {
       const spaces = await api.order.getSpacesByAdmin(adminId);
@@ -264,7 +313,7 @@ export const api = {
           spaceId: space.id,
           createdAt: space.createdAt,
           spaceName: space.name,
-          orders: orders
+          orders: orders,
         });
       }
 
@@ -273,21 +322,20 @@ export const api = {
 
     getFavouritesOrders: async (adminId) => {
       const orders = await api.order.getAllOrders(adminId);
-      console.log(orders);
-      return orders.filter(o => o.isFavourite);
-    },
 
+      return orders.filter((o) => o.isFavourite);
+    },
   },
 
   utils: {
     // Delete a space (admin use only — optional)
     deleteSpace: async (spaceId) => {
-      await deleteDoc(doc(db, 'spaces', spaceId));
+      await deleteDoc(doc(db, "spaces", spaceId));
     },
 
     // Update space name (optional)
     updateSpaceName: async (spaceId, newName) => {
-      await updateDoc(doc(db, 'spaces', spaceId), { name: newName });
+      await updateDoc(doc(db, "spaces", spaceId), { name: newName });
     },
   },
 };

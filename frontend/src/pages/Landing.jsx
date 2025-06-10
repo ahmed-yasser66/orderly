@@ -1,19 +1,36 @@
+import { useEffect } from "react";
 import { useNavigate } from "react-router";
+import { useDispatch, useSelector } from "react-redux";
+
+// Components
 import Button from "../components/Button";
 import Container from "../components/Container";
 import Pagination from "../components/Pagination";
 import RecentOrder from "../components/RecentOrder";
-import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
-import { fetchAdminData } from "../features/slices/adminReducer";
+import { useState, useRef } from "react";
 import { fetchAdminSpaces, setSpaces } from "../features/slices/spaceReducer";
 
 export default function Landing() {
+  const [displaySplashScreen, setDisplaySplashScreen] = useState(false);
+
+  let timeoutID = useRef(null);
+  useEffect(() => {
+    setDisplaySplashScreen(true);
+
+    timeoutID.current = setTimeout(() => {
+      setDisplaySplashScreen(false);
+    }, 4000);
+
+    return () => {
+      clearTimeout(timeoutID.current);
+    };
+  }, []);
+
   const navigate = useNavigate();
   const admin = useSelector((state) => state.admin);
   const spaceList = useSelector((state) => state.space.spaces);
   const dispatch = useDispatch();
-  console.log(spaceList);
+
   console.log(admin.id);
   useEffect(() => {
     if (admin.id) {
@@ -44,6 +61,7 @@ export default function Landing() {
   }
 
   // console.log(admin.spaces);
+
   return (
     <Container>
       <section className="h-[calc(100vh_-_250px)]">

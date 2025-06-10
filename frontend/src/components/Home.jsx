@@ -10,7 +10,7 @@ export default function Home() {
   const dispatch = useDispatch();
   console.log("Current admin id:", admin.id);
   // console.log("Current Firebase user id:", api.auth.);
-  console.log(space);
+
   const handleClick = async (e) => {
     const staticNewSpace = {
       name: "pizzaHut order",
@@ -22,18 +22,15 @@ export default function Home() {
     const spaceId = await api.space.createSpace(staticNewSpace);
     staticNewSpace.id = spaceId;
     // dispatch(createSpace(staticNewSpace));
-    console.log(spaceId);
   };
   const showSpaces = async () => {
     const adminSpaces = await api.order.getSpacesByAdmin(admin.id);
-    console.log(adminSpaces);
   };
   const showOrders = async () => {
     const adminFavOrders = await api.order.getFavouritesOrders(admin.id);
-    console.log(adminFavOrders);
   };
   const addItem = async () => {
-    // console.log(space);
+    //
     await api.space.addMenuItem(space.id, "1", { name: "foul", price: 6 });
     dispatch(addMenuItem({ id: "1", name: "foul", price: 6 }));
   };

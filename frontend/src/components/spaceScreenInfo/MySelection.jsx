@@ -26,6 +26,7 @@ export default function MySelection() {
 
       {/* DECORATION LINE */}
       <div className="h-[1px] w-full bg-base-content/25 my-6" />
+      {/* END DECORATION LINE */}
       <div className="flex justify-between font-semibold text-secondary">
         <span>My Total</span>
         <span>{formatCurrency(total)}</span>

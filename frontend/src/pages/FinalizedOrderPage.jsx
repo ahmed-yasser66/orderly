@@ -1,14 +1,18 @@
 import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import Container from "../components/Container";
 import Button from "../components/Button";
 import Table from "../components/Table";
 import Avatar from "../components/Avatar";
-import { icons } from "../assets/icons/icons"; // Assuming icons are exported from here
+import { icons } from "../assets/icons/icons";
+import { handleToast } from "../components/alerts";
+
+// Components
 
 const FinalizedOrderPage = () => {
   const finalizedOrder = useSelector((state) => state.order.finalizedOrder);
+  const participants = useSelector((state) => state.participants);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -70,8 +74,11 @@ ${finalizedOrder.participantOrders
     `;
     navigator.clipboard
       .writeText(orderSummary)
-      .then(() => alert("Order summary copied to clipboard!"))
-      .catch((err) => console.error("Failed to copy: ", err));
+      .then(() => handleToast("Order summary copied to clipboard!"))
+      .catch((err) => {
+        console.error("Failed to copy: ", err);
+        handleToast("Failed to copy order summary.", "error");
+      });
   };
 
   return (
