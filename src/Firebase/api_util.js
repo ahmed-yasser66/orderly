@@ -162,7 +162,7 @@ export const api = {
       console.log(adminSpaces)
       // Filter spaces where isFavourite is true
       const favouriteSpaces = adminSpaces.filter(space => space.isFavourite === true);
-      console.log(favouriteSpaces);
+
       const favouriteMenuItems = [];
 
       for (const space of favouriteSpaces) {
@@ -182,7 +182,7 @@ export const api = {
         });
       }
 
-      console.log(favouriteMenuItems);
+
       return favouriteMenuItems;
 
     }
@@ -294,7 +294,7 @@ export const api = {
 
     getFavouritesOrders: async (adminId) => {
       const orders = await api.order.getAllOrders(adminId);
-      console.log(orders);
+
       return orders.filter(o => o.isFavourite);
     },
 

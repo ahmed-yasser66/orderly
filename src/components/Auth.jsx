@@ -18,8 +18,6 @@ export default function Auth() {
   const admin = useSelector((state) => state.admin);
   const dispatch = useDispatch();
 
-  console.log(admin);
-
   const handleEmailLogin = async (e) => {
     e.preventDefault();
     setError("");
@@ -56,7 +54,7 @@ export default function Auth() {
       const result = await api.auth.loginWithGoogle();
       const user = result.user;
       setUser(user);
-      console.log(user);
+
       dispatch(setAdmin({ id: user.uid }));
       sessionStorage.setItem("internal-nav", "true");
       navigate("/home");

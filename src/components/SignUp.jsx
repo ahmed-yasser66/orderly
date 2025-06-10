@@ -25,7 +25,6 @@ export default function SignUp() {
 
     try {
       const userCredential = await api.auth.signUp(email, password);
-      console.log(userCredential);
 
       handleSuccess();
 

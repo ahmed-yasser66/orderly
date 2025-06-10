@@ -44,7 +44,7 @@ const CreateNewMenuSection = ({
           </Button>
         </div>
       ))}
-      <Button variant="secondary" onClick={handleAddMenuItem} className="mb-6">
+      <Button variant="warning" onClick={handleAddMenuItem} className="mb-6">
         Add Menu Item
       </Button>
 

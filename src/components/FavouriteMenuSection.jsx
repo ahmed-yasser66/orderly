@@ -27,7 +27,7 @@ const FavouriteMenuSection = ({
       </select>
 
       {selectedFavouriteMenu && (
-        <div className="mt-4 p-4 bg-base-300 rounded-box">
+        <div className="bg-base-300 rounded-box">
           <h3 className="text-lg font-semibold mb-2">Selected Menu Details:</h3>
           {favouriteMenus
             .find((menu) => menu.id === selectedFavouriteMenu)

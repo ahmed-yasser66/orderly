@@ -25,6 +25,7 @@ const FormInput = ({ label, type = 'text', placeholder, value, onChange, require
           value={value}
           onChange={onChange}
           required={required}
+          min={0}
         />
       )}
     </div>

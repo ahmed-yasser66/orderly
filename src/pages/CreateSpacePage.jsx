@@ -1,19 +1,17 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
-import {
-  setFavouriteMenus,
-  addFavouriteMenu,
-  saveSpaceData,
-  fetchFavouriteMenus,
-} from "../features/slices/menuSlice";
 
+// Components
+import { fetchFavouriteMenus } from "../features/slices/menuSlice";
 import SpaceDetailsForm from "../components/SpaceDetailsForm";
 import Container from "../components/Container";
 import MenuSetupTabs from "../components/MenuSetupTabs";
 import CreateNewMenuSection from "../components/CreateNewMenuSection";
 import FavouriteMenuSection from "../components/FavouriteMenuSection";
 import FormActionButtons from "../components/FormActionButtons";
+
+// features
 import { createNewSpace } from "../features/slices/spaceReducer";
 import { setCurrentSpace } from "../features/slices/adminReducer";
 import { api } from "../Firebase/api_util";
@@ -84,7 +82,7 @@ const CreateSpacePage = () => {
 
     // Dispatch the consolidated form data to Redux for saving.
     // This would typically trigger an async thunk to an API.
-    console.log(formData);
+
     // dispatch(saveSpaceData(formData));
     // formData.spaceDetails.adminId = admin.id; // Add admin ID to space details
     // dispatch(createNewSpace(formData.spaceDetails));
@@ -138,57 +136,59 @@ const CreateSpacePage = () => {
   };
 
   return (
-    <Container>
-      <h1 className="text-4xl font-bold mb-8 text-center">
-        Create New Ordering Space
-      </h1>
+    <div className="bg-base-100 text-base-content my-10">
+      <Container>
+        <h1 className="text-4xl font-bold mb-8 text-center">
+          Create New Ordering Space
+        </h1>
 
-      <form onSubmit={handleSubmit} className="max-w-4xl mx-auto space-y-8">
-        <SpaceDetailsForm
-          spaceName={spaceName}
-          setSpaceName={setSpaceName}
-          description={description}
-          setDescription={setDescription}
-          restaurantName={restaurantName}
-          setRestaurantName={setRestaurantName}
-          handleCancel={handleCancel}
-        />
+        <form onSubmit={handleSubmit} className="max-w-4xl mx-auto space-y-8">
+          <SpaceDetailsForm
+            spaceName={spaceName}
+            setSpaceName={setSpaceName}
+            description={description}
+            setDescription={setDescription}
+            restaurantName={restaurantName}
+            setRestaurantName={setRestaurantName}
+          />
 
-        <div className="card bg-base-200 shadow-sm p-6 rounded-box">
-          <div className="card-body p-0">
-            <h2 className="card-title text-2xl mb-4">Menu Setup</h2>
-            <MenuSetupTabs
-              menuOption={menuOption}
-              setMenuOption={setMenuOption}
-            />
-
-            {menuOption === "createNew" && (
-              <CreateNewMenuSection
-                menuItems={menuItems}
-                handleAddMenuItem={handleAddMenuItem}
-                handleRemoveMenuItem={handleRemoveMenuItem}
-                handleMenuItemChange={handleMenuItemChange}
-                saveAsFavourite={saveAsFavourite}
-                setSaveAsFavourite={setSaveAsFavourite}
-                favouriteMenuName={favouriteMenuName}
-                setFavouriteMenuName={setFavouriteMenuName}
+          <div className="card bg-base-200 shadow-sm p-6 rounded-box">
+            <div className="card-body p-0">
+              <h2 className="card-title text-2xl mb-4">Menu Setup</h2>
+              <MenuSetupTabs
+                menuOption={menuOption}
+                setMenuOption={setMenuOption}
               />
-            )}
 
-            {menuOption === "useFavourite" && (
-              <FavouriteMenuSection
-                favouriteMenus={favouriteMenus}
-                selectedFavouriteMenu={selectedFavouriteMenu}
-                setSelectedFavouriteMenu={setSelectedFavouriteMenu}
-              />
-            )}
+              {menuOption === "createNew" && (
+                <CreateNewMenuSection
+                  menuItems={menuItems}
+                  handleAddMenuItem={handleAddMenuItem}
+                  handleRemoveMenuItem={handleRemoveMenuItem}
+                  handleMenuItemChange={handleMenuItemChange}
+                  saveAsFavourite={saveAsFavourite}
+                  setSaveAsFavourite={setSaveAsFavourite}
+                  favouriteMenuName={favouriteMenuName}
+                  setFavouriteMenuName={setFavouriteMenuName}
+                />
+              )}
+
+              {menuOption === "useFavourite" && (
+                <FavouriteMenuSection
+                  favouriteMenus={favouriteMenus}
+                  selectedFavouriteMenu={selectedFavouriteMenu}
+                  setSelectedFavouriteMenu={setSelectedFavouriteMenu}
+                />
+              )}
+              <FormActionButtons onCancel={handleCancel} />
+            </div>
           </div>
-        </div>
 
-        {/* Form Action Buttons (Submit and Cancel) */}
-        {/* <FormActionButtons onCancel={handleCancel} /> */}
-      </form>
-    </Container>
+          {/* Form Action Buttons (Submit and Cancel) */}
+          {/* <FormActionButtons onCancel={handleCancel} /> */}
+        </form>
+      </Container>
+    </div>
   );
 };
 

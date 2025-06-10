@@ -14,33 +14,33 @@ export default function OrderSideInfo() {
   const dispatch = useDispatch();
 
   const handleFinalizeOrder = async () => {
-    await api
-      // Dispatch a dummy finalized order for testing
-      .dispatch(
-        setFinalizedOrder({
-          orderName: "Test Order",
-          restaurant: "Test Restaurant",
-          collectiveOrder: [
-            { qty: 2, itemName: "Burger", pricePerItem: 10.0, subtotal: 20.0 },
-            { qty: 1, itemName: "Fries", pricePerItem: 3.0, subtotal: 3.0 },
-          ],
-          grandTotal: 23.0,
-          participantOrders: [
-            {
-              name: "Alice",
-              initials: "A",
-              items: [{ qty: 2, itemName: "Burger" }],
-              total: 20.0,
-            },
-            {
-              name: "Bob",
-              initials: "B",
-              items: [{ qty: 1, itemName: "Fries" }],
-              total: 3.0,
-            },
-          ],
-        })
-      );
+    // await api
+    // Dispatch a dummy finalized order for testing
+    dispatch(
+      setFinalizedOrder({
+        orderName: "Test Order",
+        restaurant: "Test Restaurant",
+        collectiveOrder: [
+          { qty: 2, itemName: "Burger", pricePerItem: 10.0, subtotal: 20.0 },
+          { qty: 1, itemName: "Fries", pricePerItem: 3.0, subtotal: 3.0 },
+        ],
+        grandTotal: 23.0,
+        participantOrders: [
+          {
+            name: "Alice",
+            initials: "A",
+            items: [{ qty: 2, itemName: "Burger" }],
+            total: 20.0,
+          },
+          {
+            name: "Bob",
+            initials: "B",
+            items: [{ qty: 1, itemName: "Fries" }],
+            total: 3.0,
+          },
+        ],
+      })
+    );
     navigate("/finalized-order");
   };
 

@@ -43,7 +43,7 @@ export default function Participants() {
   //   return () => clearInterval(interval);
   // }, [participants, dispatch]);
 
-  // console.log(participants);
+  //
 
   return (
     <div className="bg-base-200 px-6 py-4 shadow-sm rounded-xl">
