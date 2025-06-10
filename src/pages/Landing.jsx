@@ -1,27 +1,17 @@
-<<<<<<<<< Temporary merge branch 1
 
-import { useEffect, useRef, useState } from "react";
 
 import { useNavigate } from "react-router";
 
-=========
-import { useNavigate } from "react-router";
->>>>>>>>> Temporary merge branch 2
 import Button from "../components/Button";
 import Container from "../components/Container";
 import Pagination from "../components/Pagination";
 import RecentOrder from "../components/RecentOrder";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
-import { fetchAdminData } from "../features/slices/adminReducer";
-import { fetchAdminSpaces, setSpaces } from "../features/slices/spaceReducer";
+import { useEffect } from "react"
+import { fetchAdminSpaces } from "../features/slices/spaceReducer";
 
 export default function Landing() {
-
   const navigate = useNavigate();
-<<<<<<<<< Temporary merge branch 1
-
-=========
   const admin = useSelector((state) => state.admin);
   const spaceList = useSelector((state) => state.space.spaces);
   const dispatch = useDispatch();
@@ -56,7 +46,7 @@ export default function Landing() {
   }
 
   // console.log(admin.spaces);
->>>>>>>>> Temporary merge branch 2
+
   return (
     <Container>
       <section className="h-[calc(100vh_-_250px)]">

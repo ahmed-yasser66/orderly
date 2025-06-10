@@ -6,8 +6,6 @@ import Button from '../components/Button';
 import Table from '../components/Table';
 import Avatar from '../components/Avatar';
 
-import { icons } from '../assets/icons/icons'; // Assuming icons are exported from here
-
 import { icons } from '../assets/icons/icons';
 import { handleToast } from '../components/alerts';
 
