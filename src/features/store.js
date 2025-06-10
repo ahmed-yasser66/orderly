@@ -43,7 +43,7 @@ const persistConfig = {
   key: "root",
   version: 1,
   storage,
-  whitelist: ["admin", "space", "order", "participants", "single"], // only these will be persisted
+  whitelist: ["admin"], // only these will be persisted
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

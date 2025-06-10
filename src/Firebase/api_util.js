@@ -111,6 +111,11 @@ export const api = {
     addMenuItem: async (spaceId, itemId, itemData) => {
       await setDoc(doc(db, SPACES_TBL, spaceId, MENUEITEMS_TBL, itemId), itemData);
     },
+    updateMenuItem: async (spaceId, itemId, itemData) => {
+      const itemRef = doc(db, SPACES_TBL, spaceId, MENUEITEMS_TBL, itemId);
+      await updateDoc(itemRef, itemData);
+      // await updateDoc(doc(db, SPACES_TBL, spaceId, MENUEITEMS_TBL, itemId), itemData);
+    },
 
     // Add a participant (with generated or custom ID)
     addParticipant: async (spaceId, name) => {

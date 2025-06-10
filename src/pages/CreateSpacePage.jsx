@@ -117,6 +117,7 @@ const CreateSpacePage = () => {
       const itemId = `${spaceId}-${idx}`; // or use item.id if available
       const itemData = {
         ...item,
+        quantity: 0,
       };
       await api.space.addMenuItem(spaceId, itemId, itemData); // Save under /spaces/{spaceId}/menuItems/{itemId}
     }

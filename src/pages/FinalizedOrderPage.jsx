@@ -1,16 +1,37 @@
-import React, { useEffect } from 'react';
-import { useSelector } from 'react-redux';
-import { useNavigate } from 'react-router';
-import Container from '../components/Container';
-import Button from '../components/Button';
-import Table from '../components/Table';
-import Avatar from '../components/Avatar';
-import { icons } from '../assets/icons/icons';
-import { handleToast } from '../components/alerts';
+import React, { useEffect } from "react";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router";
+import Container from "../components/Container";
+import Button from "../components/Button";
+import Table from "../components/Table";
+import Avatar from "../components/Avatar";
+import { icons } from "../assets/icons/icons";
+import { handleToast } from "../components/alerts";
+import { api } from "../Firebase/api_util";
 
 const FinalizedOrderPage = () => {
   const finalizedOrder = useSelector((state) => state.order.finalizedOrder);
   const navigate = useNavigate();
+  // const spaceId = useSelector((state) => state.admin.currentSpace);
+  // const handleFinalizeOrder = async (spaceId, itemId, quantityToAdd) => {
+  //   try {
+  //     // 1. Get the current item data
+  //     const currentItem = await api.space.updateMenuItem(spaceId, itemId); // { name, quantity, ... }
+
+  //     // 2. Update quantity
+  //     const updatedItem = {
+  //       ...currentItem,
+  //       quantity: (currentItem.quantity || 0) + quantityToAdd,
+  //     };
+
+  //     // 3. Save it back
+  //     await api.space.updateMenuItem(spaceId, itemId, updatedItem);
+
+  //     console.log("Order finalized:", updatedItem);
+  //   } catch (err) {
+  //     console.error("Failed to finalize order:", err);
+  //   }
+  // };
 
   useEffect(() => {
     if (!finalizedOrder) {
