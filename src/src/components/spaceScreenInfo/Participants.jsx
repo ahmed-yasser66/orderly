@@ -19,6 +19,7 @@ export default function Participants() {
 
   useEffect(() => {
     // Fetch participants when component mounts
+
     dispatch(fetchParticipants(spaceId));
   }, [dispatch, spaceId]);
   // useEffect(() => {

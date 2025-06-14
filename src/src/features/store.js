@@ -27,7 +27,6 @@ import orderReducer from "./slices/orderSlice";
 import adminReducer from "./slices/adminReducer";
 import menuReducer from "./slices/menuSlice";
 import singlemenuReducer from "./slices/singlemenu";
-import { collectiveOrdersSlice } from "./slices/collectiveOrderReducer";
 
 // Combine all your slices
 const rootReducer = combineReducers({
@@ -37,7 +36,6 @@ const rootReducer = combineReducers({
   order: orderReducer,
   admin: adminReducer,
   single: singlemenuReducer,
-  collective: collectiveOrdersSlice
 });
 
 // Configure persist
