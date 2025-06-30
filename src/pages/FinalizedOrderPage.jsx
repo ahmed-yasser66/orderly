@@ -9,7 +9,7 @@ import { icons } from "../assets/icons/icons";
 import { handleToast } from "../components/alerts";
 
 // Components
-
+// we got a bug in here
 const FinalizedOrderPage = () => {
   const finalizedOrder = useSelector((state) => state.order.finalizedOrder);
   const participants = useSelector((state) => state.participants);
